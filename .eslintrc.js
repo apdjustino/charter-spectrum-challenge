@@ -36,6 +36,7 @@ module.exports = {
     "react/prop-types": 0,
     "react/display-name": 0,
     "max-len": ["error", { code: 160, ignoreStrings: true, ignoreRegExpLiterals: true }],
+    "no-console": "off",
   },
   settings: {
     react: {
