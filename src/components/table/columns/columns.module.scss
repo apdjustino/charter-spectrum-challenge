@@ -1,0 +1,48 @@
+@import "./../../../styles/root.scss";
+
+.column {
+    &.card {
+        background-color: $mint;
+        color: $sailor_blue;
+        padding: 10px;
+
+        .nameContainer {
+            display: flex;
+            justify-content: space-between;            
+
+            .name {                
+                font-size: 18px;
+            }                    
+            .caret {                
+                cursor: pointer;
+                height: 20px;
+                width: 16px;
+                background-repeat: no-repeat;
+                background-position: center;
+                &.up {
+                    background-image: url("./../../../assets/caretUp.svg");
+                }
+    
+                &.down {
+                    background-image: url("./../../../assets/caretDown.svg");
+                }
+            }
+        }
+        .addressContainer {
+            display: flex;
+            justify-content: space-between;            
+
+            .address {
+                font-size: 14px;
+            }
+            .phone {                
+                font-size: 14px;
+            }
+        }
+
+        .genreContainer {
+            display: flex;
+            font-size: 14px;
+        }
+    }
+}

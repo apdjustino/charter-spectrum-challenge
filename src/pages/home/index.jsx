@@ -3,7 +3,7 @@ import style from "./home.module.scss";
 import React, { useEffect, useState } from "react";
 import { orderBy, uniq } from "lodash";
 import Table from "../../components/table";
-import FilterColumn from "../../components/table/columns/filter";
+import Card from "../../components/table/columns/card";
 import { getRestaurants } from "../../state/restaurants/promises";
 
 const Home = () => {
@@ -21,31 +21,15 @@ const Home = () => {
 
   const columns = [
     {
-      name: "Restaurant",
-      render: (d) => d.name,
-    },
-    {
-      name: "City",
-      render: (d) => d.city,
-    },
-    {
-      name: "State",
-      render: (d) => d.state,
-    },
-    {
-      name: "Phone",
-      render: (d) => d.telephone,
-    },
-    {
-      name: "Genre",
-      render: (d) => d.genre,
+      name: "",
+      render: (d) => <Card data={d} />,
     },
   ];
 
   return (
     <div className={style.container}>
       <div className={style.title}>Restaurant Finder 2021</div>
-      <Table columns={columns} data={restaurants} />
+      <Table header={false} columns={columns} data={restaurants} />
     </div>
   );
 };
