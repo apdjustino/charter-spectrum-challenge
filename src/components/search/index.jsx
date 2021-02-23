@@ -5,7 +5,14 @@ import React from "react";
 const Search = ({ setter = () => null, searchAction = () => null }) => {
   return (
     <div className={style.search}>
-      <input type="text" placeholder="Search" onChange={(e) => setter(e.target.value)} />
+      <input
+        type="text"
+        placeholder="Search"
+        onChange={(e) => setter(e.target.value)}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") searchAction();
+        }}
+      />
       <div className={style.button} onClick={searchAction}>
         Search
       </div>
