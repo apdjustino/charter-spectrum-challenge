@@ -5,7 +5,8 @@ import { orderBy, uniq } from "lodash";
 import Table from "../../components/table";
 import Card from "../../components/table/columns/card";
 import Filter from "../../components/filter";
-import { filter } from "../../state/restaurants";
+import Search from "../../components/search";
+import { filter, search } from "../../state/restaurants";
 import { getRestaurants } from "../../state/restaurants/promises";
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
   const [genreOptions, setGenreOptions] = useState([]);
   const [selectedState, setSelectedState] = useState("All");
   const [selectedGenre, setSelectedGenre] = useState("All");
+  const [searchString, setSearchString] = useState("");
 
   useEffect(async () => {
     const { data } = await getRestaurants();
@@ -33,7 +35,15 @@ const Home = () => {
     filter(restaurants, selectedState, selectedGenre, setFilteredData);
   }, [selectedState, selectedGenre]);
 
-  console.log(restaurants);
+  useEffect(() => {
+    if (searchString === "") {
+      filter(restaurants, selectedState, selectedGenre, setFilteredData);
+    }
+  }, [searchString]);
+
+  const searchAction = () => {
+    search(filteredData, searchString, setFilteredData);
+  };
 
   const columns = [
     {
@@ -45,6 +55,9 @@ const Home = () => {
   return (
     <div className={style.container}>
       <div className={style.title}>Restaurant Finder 2021</div>
+      <div className={style.searchContainer}>
+        <Search setter={setSearchString} searchAction={searchAction} />
+      </div>
       <div className={style.filterContainer}>
         <Filter label="State" options={stateOptions} width={75} selectedOption={selectedState} setSelectedOption={setSelectedState} />
         <Filter label="Genre" options={genreOptions} width={150} selectedOption={selectedGenre} setSelectedOption={setSelectedGenre} />

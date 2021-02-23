@@ -6,3 +6,16 @@ export const filter = (data, state, genre, setter = () => null) => {
   });
   setter(updatedData);
 };
+
+export const search = (data, searchString, setter = () => null) => {
+  if (searchString === "") return data;
+
+  const updatedData = data.filter((item) => {
+    const nameCondition = item.name.startsWith(searchString);
+    const cityCondition = item.city.startsWith(searchString);
+    const genreCondition = item.genre.includes(searchString);
+
+    return nameCondition || cityCondition || genreCondition;
+  });
+  setter(updatedData);
+};

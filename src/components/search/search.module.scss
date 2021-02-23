@@ -1,0 +1,41 @@
+@import "./../../styles/colors.scss";
+
+.search {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+
+    input {
+        margin-right: 15px;
+        font-size: 18px;
+        background-color: $mint;
+        border: none;
+        border: solid 1px $mint;
+        border-radius: 5px;
+        color: $sailor_blue;
+        width: 60%;
+
+        &::placeholder {
+            color: $sailor_blue
+        }
+
+        &:focus {
+            outline-color: $mint;
+            border-color: $mint;
+        }
+    }
+
+
+    .button {
+        width: 90px;
+        font-size: 18px;
+        height: 40px;
+        color: $sailor_blue;
+        background-color: $mint;
+        border: 1px solid $mint;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+    }
+}
