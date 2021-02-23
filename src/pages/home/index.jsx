@@ -14,31 +14,34 @@ const Home = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [stateOptions, setStateOptions] = useState([]);
   const [genreOptions, setGenreOptions] = useState([]);
+  const [attireOptions, setAttireOptions] = useState([]);
   const [selectedState, setSelectedState] = useState("All");
   const [selectedGenre, setSelectedGenre] = useState("All");
+  const [selectedAttire, setSelectedAttire] = useState("All");
   const [searchString, setSearchString] = useState("");
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
 
   useEffect(async () => {
-    const { genres, states, restaurantData } = await getData();
+    const { genres, states, restaurantData, attire } = await getData();
     setRestaurants(restaurantData);
     setFilteredData(restaurantData);
+    setAttireOptions(["All", ...attire]);
     setStateOptions(["All", ...states]);
     setGenreOptions(["All", ...genres]);
   }, []);
 
   useEffect(() => {
-    filter(restaurants, selectedState, selectedGenre, searchString, setFilteredData);
-  }, [selectedState, selectedGenre]);
+    filter(restaurants, selectedState, selectedGenre, selectedAttire, searchString, setFilteredData);
+  }, [selectedState, selectedGenre, selectedAttire]);
 
   useEffect(() => {
     if (searchString === "") {
-      filter(restaurants, selectedState, selectedGenre, searchString, setFilteredData);
+      filter(restaurants, selectedState, selectedGenre, selectedAttire, searchString, setFilteredData);
     }
   }, [searchString]);
 
   const searchAction = () => {
-    filter(restaurants, selectedState, selectedGenre, searchString, setFilteredData);
+    filter(restaurants, selectedState, selectedGenre, selectedAttire, searchString, setFilteredData);
   };
 
   const columns = [
@@ -58,6 +61,7 @@ const Home = () => {
       <div className={style.filterContainer}>
         <Filter label="State" options={stateOptions} width={75} selectedOption={selectedState} setSelectedOption={setSelectedState} />
         <Filter label="Genre" options={genreOptions} width={150} selectedOption={selectedGenre} setSelectedOption={setSelectedGenre} />
+        <Filter label="Attire" options={attireOptions} width={150} selectedOption={selectedAttire} setSelectedOption={setSelectedAttire} />
       </div>
       {filteredData.length > 0 ? (
         <React.Fragment>

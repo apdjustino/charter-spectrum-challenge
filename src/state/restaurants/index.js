@@ -7,16 +7,18 @@ export const getData = async () => {
   return {
     genres: orderBy(uniq(genreString.split(","))),
     states: orderBy(uniq(data.map((item) => item.state))),
+    attire: orderBy(uniq(data.map((item) => item.attire))),
     restaurantData: chunk(orderBy(data, "name"), 10),
   };
 };
 
-export const filter = (chunkedData, state, genre, searchString, setter = () => null) => {
+export const filter = (chunkedData, state, genre, attire, searchString, setter = () => null) => {
   const data = flattenDeep(chunkedData);
   let updatedData = data.filter((item) => {
     const stateCondition = state !== "All" ? item.state === state : true;
     const genreCondition = genre !== "All" ? item.genre.includes(genre) : true;
-    return stateCondition && genreCondition;
+    const attireCondition = attire !== "All" ? item.attire === attire : true;
+    return stateCondition && genreCondition && attireCondition;
   });
 
   if (searchString !== "") {
