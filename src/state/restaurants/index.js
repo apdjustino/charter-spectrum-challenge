@@ -1,4 +1,18 @@
-export const filter = (data, state, genre, searchString, setter = () => null) => {
+import { getRestaurants } from "./promises";
+import { orderBy, uniq, chunk, flattenDeep } from "lodash";
+
+export const getData = async () => {
+  const { data } = await getRestaurants();
+  const genreString = data.map((item) => item.genre).reduce((acc, cv) => `${acc},${cv}`);
+  return {
+    genres: orderBy(uniq(genreString.split(","))),
+    states: orderBy(uniq(data.map((item) => item.state))),
+    restaurantData: chunk(orderBy(data, "name"), 10),
+  };
+};
+
+export const filter = (chunkedData, state, genre, searchString, setter = () => null) => {
+  const data = flattenDeep(chunkedData);
   let updatedData = data.filter((item) => {
     const stateCondition = state !== "All" ? item.state === state : true;
     const genreCondition = genre !== "All" ? item.genre.includes(genre) : true;
@@ -14,5 +28,10 @@ export const filter = (data, state, genre, searchString, setter = () => null) =>
     });
   }
 
-  setter(updatedData);
+  setter(chunk(updatedData, 10));
+};
+
+export const getPageCount = (chunkedData) => {
+  const data = flattenDeep(chunkedData);
+  return Math.ceil(data.length / 10);
 };

@@ -1,13 +1,12 @@
 import style from "./home.module.scss";
 
 import React, { useEffect, useState } from "react";
-import { orderBy, uniq } from "lodash";
 import Table from "../../components/table";
 import Card from "../../components/table/columns/card";
 import Filter from "../../components/filter";
 import Search from "../../components/search";
-import { filter, search } from "../../state/restaurants";
-import { getRestaurants } from "../../state/restaurants/promises";
+import Pagination from "../../components/pagination";
+import { getData, filter, getPageCount } from "../../state/restaurants";
 
 const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -17,14 +16,10 @@ const Home = () => {
   const [selectedState, setSelectedState] = useState("All");
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [searchString, setSearchString] = useState("");
+  const [currentPageIndex, setCurrentPageIndex] = useState(0);
 
   useEffect(async () => {
-    const { data } = await getRestaurants();
-    const genreString = data.map((item) => item.genre).reduce((acc, cv) => `${acc},${cv}`);
-    const genres = orderBy(uniq(genreString.split(",")));
-    const states = orderBy(uniq(data.map((item) => item.state)));
-    const restaurantData = orderBy(data, "name");
-    data.forEach((item) => {});
+    const { genres, states, restaurantData } = await getData();
     setRestaurants(restaurantData);
     setFilteredData(restaurantData);
     setStateOptions(["All", ...states]);
@@ -51,7 +46,8 @@ const Home = () => {
       render: (d) => <Card data={d} />,
     },
   ];
-
+  const pageCount = getPageCount(filteredData);
+  console.log(pageCount);
   return (
     <div className={style.container}>
       <div className={style.title}>Restaurant Finder 2021</div>
@@ -62,7 +58,8 @@ const Home = () => {
         <Filter label="State" options={stateOptions} width={75} selectedOption={selectedState} setSelectedOption={setSelectedState} />
         <Filter label="Genre" options={genreOptions} width={150} selectedOption={selectedGenre} setSelectedOption={setSelectedGenre} />
       </div>
-      <Table header={false} columns={columns} data={filteredData} options={stateOptions} />
+      <Table header={false} columns={columns} data={filteredData[currentPageIndex]} options={stateOptions} />
+      <Pagination selectedPageIndex={currentPageIndex} pageCount={pageCount} setter={setCurrentPageIndex} />
     </div>
   );
 };

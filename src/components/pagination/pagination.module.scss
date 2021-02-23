@@ -1,0 +1,14 @@
+.pagination {
+    display: flex;
+    flex-direction: row-reverse;
+    .pageLink {
+        margin-right: 15px;
+        font-size: 18px;
+        cursor: pointer;
+
+        &.selected {
+            border-bottom: solid 1px;
+            padding-bottom: 2px;
+        }
+    }
+}
