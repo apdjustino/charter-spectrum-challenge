@@ -1,14 +1,19 @@
 import style from "./home.module.scss";
 
 import React, { useEffect, useState } from "react";
-import { orderBy } from "lodash";
+import { orderBy, uniq } from "lodash";
 import Table from "../../components/table";
+import FilterColumn from "../../components/table/columns/filter";
 import { getRestaurants } from "../../state/restaurants/promises";
 
 const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
   useEffect(async () => {
     const { data } = await getRestaurants();
+    const genreString = data.map((item) => item.genre).reduce((acc, cv) => `${acc},${cv}`);
+    const genres = uniq(genreString.split(","));
+    console.log(genres);
+    data.forEach((item) => {});
     setRestaurants(orderBy(data, "name"));
   }, []);
 

@@ -8,7 +8,7 @@ const Table = ({ columns = [], data = [], classes = "", header = true, onRowClic
       <tr>
         {columns.map((column, i) => (
           <td key={i} style={{ width: !!column.width ? column.width : "auto", maxWidth: !!column.maxWidth ? column.maxWidth : "initial" }}>
-            {column.name}
+            {!!column.renderHeader ? column.renderHeader(data) : column.name}
           </td>
         ))}
       </tr>
