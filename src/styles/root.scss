@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap");
+@import "./colors.scss";
+
+html,
+body {
+  overflow: scroll;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: $sailor_blue;
+    color: $mint;
+    font-size: 14px;
+    font-family: "Roboto", "Helvetica Neue", "Arial", sans-serif !important;
+  }
