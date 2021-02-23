@@ -32,17 +32,17 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    filter(restaurants, selectedState, selectedGenre, setFilteredData);
+    filter(restaurants, selectedState, selectedGenre, searchString, setFilteredData);
   }, [selectedState, selectedGenre]);
 
   useEffect(() => {
     if (searchString === "") {
-      filter(restaurants, selectedState, selectedGenre, setFilteredData);
+      filter(restaurants, selectedState, selectedGenre, searchString, setFilteredData);
     }
   }, [searchString]);
 
   const searchAction = () => {
-    search(filteredData, searchString, setFilteredData);
+    filter(restaurants, selectedState, selectedGenre, searchString, setFilteredData);
   };
 
   const columns = [
