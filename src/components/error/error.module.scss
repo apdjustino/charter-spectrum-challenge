@@ -1,0 +1,20 @@
+@import "./../../styles//colors.scss";
+.error{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .icon {
+        height: 150px;
+        width: 150px;
+        background-image: url("./../../assets/not_found.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .message {
+        font-size: 24px;
+    }
+}

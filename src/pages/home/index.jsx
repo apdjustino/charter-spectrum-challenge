@@ -6,6 +6,7 @@ import Card from "../../components/table/columns/card";
 import Filter from "../../components/filter";
 import Search from "../../components/search";
 import Pagination from "../../components/pagination";
+import Error from "../../components/error/error";
 import { getData, filter, getPageCount } from "../../state/restaurants";
 
 const Home = () => {
@@ -58,8 +59,14 @@ const Home = () => {
         <Filter label="State" options={stateOptions} width={75} selectedOption={selectedState} setSelectedOption={setSelectedState} />
         <Filter label="Genre" options={genreOptions} width={150} selectedOption={selectedGenre} setSelectedOption={setSelectedGenre} />
       </div>
-      <Table header={false} columns={columns} data={filteredData[currentPageIndex]} options={stateOptions} />
-      <Pagination selectedPageIndex={currentPageIndex} pageCount={pageCount} setter={setCurrentPageIndex} />
+      {filteredData.length > 0 ? (
+        <React.Fragment>
+          <Table header={false} columns={columns} data={filteredData[currentPageIndex]} options={stateOptions} />
+          <Pagination selectedPageIndex={currentPageIndex} pageCount={pageCount} setter={setCurrentPageIndex} />
+        </React.Fragment>
+      ) : (
+        <Error />
+      )}
     </div>
   );
 };
