@@ -1,8 +1,8 @@
 @import "./../../styles/colors.scss";
 
 .table {
-  max-width: 500px;
   table-layout: fixed;
+  width: 100%;
   border-spacing: 0;
   font-size: 18px;
 
@@ -23,7 +23,7 @@
       td {
         padding: 10px 10px 9px;
         color: $mint;
-        border-bottom: 1px solid #192957;
+        position: relative;
 
         &:first-of-type {
           border-left: none;

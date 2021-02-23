@@ -5,10 +5,12 @@ import { orderBy, uniq } from "lodash";
 import Table from "../../components/table";
 import Card from "../../components/table/columns/card";
 import Filter from "../../components/filter";
+import { filter } from "../../state/restaurants";
 import { getRestaurants } from "../../state/restaurants/promises";
 
 const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [stateOptions, setStateOptions] = useState([]);
   const [genreOptions, setGenreOptions] = useState([]);
   const [selectedState, setSelectedState] = useState("All");
@@ -17,13 +19,19 @@ const Home = () => {
   useEffect(async () => {
     const { data } = await getRestaurants();
     const genreString = data.map((item) => item.genre).reduce((acc, cv) => `${acc},${cv}`);
-    const genres = uniq(genreString.split(","));
+    const genres = orderBy(uniq(genreString.split(",")));
     const states = orderBy(uniq(data.map((item) => item.state)));
+    const restaurantData = orderBy(data, "name");
     data.forEach((item) => {});
-    setRestaurants(orderBy(data, "name"));
+    setRestaurants(restaurantData);
+    setFilteredData(restaurantData);
     setStateOptions(["All", ...states]);
     setGenreOptions(["All", ...genres]);
   }, []);
+
+  useEffect(() => {
+    filter(restaurants, selectedState, selectedGenre, setFilteredData);
+  }, [selectedState, selectedGenre]);
 
   console.log(restaurants);
 
@@ -41,7 +49,7 @@ const Home = () => {
         <Filter label="State" options={stateOptions} width={75} selectedOption={selectedState} setSelectedOption={setSelectedState} />
         <Filter label="Genre" options={genreOptions} width={150} selectedOption={selectedGenre} setSelectedOption={setSelectedGenre} />
       </div>
-      <Table header={false} columns={columns} data={restaurants} options={stateOptions} />
+      <Table header={false} columns={columns} data={filteredData} options={stateOptions} />
     </div>
   );
 };
