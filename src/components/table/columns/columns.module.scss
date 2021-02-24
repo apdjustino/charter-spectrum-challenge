@@ -56,5 +56,29 @@
             display: flex;        
             font-size: 14px;
         }
+
+        .icon {
+            height: 24px;
+            width: 24px;
+            background-position: center;
+            background-repeat: no-repeat;
+            float: right;
+
+            &.casual {
+                background-image: url("./../../../assets/casual.svg");
+            }
+
+            &.formal {
+                background-image: url("./../../../assets/formal.svg");
+            }
+
+            &.businessCasual {
+                background-image: url("./../../../assets/business_casual.svg");
+            }
+
+            &.smartCasual {
+                background-image: url("./../../../assets/smart_casual.svg");
+            }
+        }
     }
 }

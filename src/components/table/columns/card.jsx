@@ -7,10 +7,18 @@ const Card = ({ data }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { address1, attire, city, genre, hours, id, lat, long, name, state, tags, telephone, website, zip } = data;
   const genres = genre.split(",");
+  let attireClass = attire.toLowerCase();
+
+  if (attireClass === "business casual") attireClass = "businessCasual";
+  if (attireClass === "smart casual") attireClass = "smartCasual";
+
   return (
     <div className={`${style.column} ${style.card}`}>
       <div className={style.nameContainer}>
-        <div className={style.name}>{name}</div>
+        <div className={style.name}>
+          {name}
+          <div title={attire} className={`${style.icon} ${style[attireClass]}`} />
+        </div>
         <div className={`${style.caret} ${style.down}`} onClick={() => setIsExpanded(!isExpanded)} />
       </div>
       <div className={style.addressContainer}>
