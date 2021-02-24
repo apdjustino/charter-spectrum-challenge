@@ -51,7 +51,6 @@ const Home = () => {
     },
   ];
   const pageCount = getPageCount(filteredData);
-  console.log(pageCount);
   return (
     <div className={style.container}>
       <div className={style.title}>Restaurant Finder 2021</div>

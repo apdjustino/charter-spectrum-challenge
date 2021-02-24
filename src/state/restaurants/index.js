@@ -20,7 +20,6 @@ export const filter = (chunkedData, state, genre, attire, searchString, setter =
     const attireCondition = attire !== "All" ? item.attire === attire : true;
     return stateCondition && genreCondition && attireCondition;
   });
-
   if (searchString !== "") {
     updatedData = updatedData.filter((item) => {
       const nameCondition = item.name.startsWith(searchString);
