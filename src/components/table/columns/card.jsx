@@ -13,13 +13,13 @@ const Card = ({ data }) => {
   if (attireClass === "smart casual") attireClass = "smartCasual";
 
   return (
-    <div className={`${style.column} ${style.card}`}>
+    <div className={`${style.column} ${style.card}`} onClick={() => setIsExpanded(!isExpanded)}>
       <div className={style.nameContainer}>
         <div className={style.name}>
           {name}
           <div title={attire} className={`${style.icon} ${style[attireClass]}`} />
         </div>
-        <div className={`${style.caret} ${style.down}`} onClick={() => setIsExpanded(!isExpanded)} />
+        <div className={`${style.caret} ${style.down}`} />
       </div>
       <div className={style.addressContainer}>
         <div className={style.address}>
