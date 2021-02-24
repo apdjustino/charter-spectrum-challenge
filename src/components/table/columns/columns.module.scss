@@ -12,6 +12,8 @@
 
             .name {                
                 font-size: 18px;
+                font-weight: 500;
+                margin-bottom: 5px;
             }                    
             .caret {                
                 cursor: pointer;
@@ -30,7 +32,8 @@
         }
         .addressContainer {
             display: flex;
-            justify-content: space-between;            
+            justify-content: space-between;
+            margin-bottom: 5px;            
 
             .address {
                 font-size: 14px;
@@ -42,6 +45,15 @@
 
         .genreContainer {
             display: flex;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .hours {
+            font-size: 14px;
+        }
+
+        .additionalContainer {
+            display: flex;        
             font-size: 14px;
         }
     }
